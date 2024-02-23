@@ -1,9 +1,17 @@
-import Head from "next/head";
-import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { AppContext } from "@/ContextProvider";
+import ProductCard from "@/components/ProductCard";
+import RecipeReviewCard from "@/components/ProductCard";
+import { useContext } from "react";
 
 export default function Home() {
-  return <h1>Home</h1>;
+  const { products } = useContext(AppContext);
+
+  return (<>
+  <h1>Home</h1>
+  <div>
+    {products?.map((product) => (
+      <ProductCard key={product.id} product={product}/>
+    ))}
+    </div>
+  </>);
 }
