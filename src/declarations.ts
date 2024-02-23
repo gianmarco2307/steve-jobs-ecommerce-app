@@ -1,5 +1,5 @@
 export type Cart = Array<{
-  id: number;
+  product: Product;
   quantity: number;
 }>;
 
@@ -20,8 +20,8 @@ export interface TContext {
   products: Array<Product> | null;
   loading: boolean;
   error: string;
-  addToCart: (idProduct: Product["id"]) => void;
-  removeFromCart: (idProduct: Product["id"]) => void;
+  addToCart: (newProduct: Product) => void;
+  removeFromCart: (productToRemove: Product) => void;
   pay: () => void;
   done: () => void;
   getProductQuantity: (idProduct: Product["id"]) => number;

@@ -25,24 +25,24 @@ export function ContextProvider({ children }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
-  const addToCart = (idProduct: Product["id"]) => {
-    const found = cart.find((el) => el.id === idProduct);
+  const addToCart = (newProduct: Product) => {
+    const found = cart.find((el) => el.product === newProduct);
     if (!!found) {
       const newCart = cart.map((el) => {
-        if (el.id !== idProduct) return el;
-        return { id: el.id, quantity: el.quantity + 1 };
+        if (el.product !== newProduct) return el;
+        return { product: el.product, quantity: el.quantity + 1 };
       });
       setCart(newCart);
     } else {
-      setCart([...cart, { id: idProduct, quantity: 1 }]);
+      setCart([...cart, { product: newProduct, quantity: 1 }]);
     }
   };
 
-  const removeFromCart = (idProduct: Product["id"]) => {
+  const removeFromCart = (productToRemove: Product) => {
     const newCart = cart.reduce((acc, el) => {
-      if (el.id === idProduct) {
+      if (el.product === productToRemove) {
         if (el.quantity > 1) {
-          acc.push({ id: el.id, quantity: el.quantity - 1 });
+          acc.push({ product: el.product, quantity: el.quantity - 1 });
           return acc;
         }
         return acc;
