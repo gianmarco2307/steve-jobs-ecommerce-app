@@ -10,7 +10,7 @@ import { Delete, Payment } from "@mui/icons-material";
 import { useRouter } from "next/router";
 
 export default function CartList() {
-  const { cart, removeFromCart } = React.useContext(AppContext);
+  const { cart, removeFromCart, pay } = React.useContext(AppContext);
   const [total, setTotal] = React.useState<number>(0);
   const router = useRouter();
 
@@ -23,6 +23,7 @@ export default function CartList() {
   }
 
   function onClickPay() {
+    pay();
     router.push("/success");
   }
 
