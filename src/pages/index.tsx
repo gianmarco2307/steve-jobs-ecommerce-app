@@ -1,4 +1,5 @@
 import { AppContext } from "@/ContextProvider";
+import ErrorAlert from "@/components/Error";
 import Loading from "@/components/Loading";
 import ProductCard from "@/components/ProductCard";
 import { styled } from "@mui/material";
@@ -14,7 +15,9 @@ const CardDiv = styled("div")({
 });
 
 export default function Home() {
-  const { products, loading } = useContext(AppContext);
+  const { products, loading, error } = useContext(AppContext);
+
+  if (error) return <ErrorAlert />;
 
   if (loading)
     return (
