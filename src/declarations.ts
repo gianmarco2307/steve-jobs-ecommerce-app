@@ -20,7 +20,7 @@ export interface TContext {
   products: Array<Product> | null;
   loading: boolean;
   error: string;
-  addToCart: (newProduct: Product) => void;
+  addToCart: (newProduct: Product, quantityToBuy: number) => void;
   removeFromCart: (productToRemove: Product) => void;
   pay: () => void;
   done: () => void;

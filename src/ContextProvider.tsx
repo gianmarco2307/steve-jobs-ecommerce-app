@@ -25,16 +25,16 @@ export function ContextProvider({ children }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
-  const addToCart = (newProduct: Product) => {
+  const addToCart = (newProduct: Product, quantityToBuy: number) => {
     const found = cart.find((el) => el.product === newProduct);
     if (!!found) {
       const newCart = cart.map((el) => {
         if (el.product !== newProduct) return el;
-        return { product: el.product, quantity: el.quantity + 1 };
+        return { product: el.product, quantity: el.quantity + quantityToBuy };
       });
       setCart(newCart);
     } else {
-      setCart([...cart, { product: newProduct, quantity: 1 }]);
+      setCart([...cart, { product: newProduct, quantity: quantityToBuy }]);
     }
   };
 
@@ -79,7 +79,15 @@ export function ContextProvider({ children }: Props) {
   };
 
   const getProductQuantity = (idProduct: Product["id"]) => {
-    return 0;
+    const found = cart.find((el) => el.product.id === idProduct);
+    const product = products?.find((el) => el.id === idProduct);
+    if (!product) {
+      return 0;
+    }
+    if (!found) {
+      return product.qty;
+    }
+    return product.qty - found.quantity;
   };
 
   useEffect(() => {

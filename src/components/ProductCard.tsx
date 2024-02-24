@@ -14,7 +14,7 @@ import { AppContext } from "@/ContextProvider";
 export default function ProductCard({ product }: { product: Product["id"] }) {
   const [quantity, setQuantity] = React.useState<number | null>(null);
 
-  const { products, addToCart } = React.useContext(AppContext);
+  const { products, addToCart, getProductQuantity } = React.useContext(AppContext);
   const productToShow: Product | undefined = products?.find(
     (el) => el.id === product
   );
@@ -32,7 +32,7 @@ export default function ProductCard({ product }: { product: Product["id"] }) {
       <CardHeader
         avatar={<Avatar src={productToShow?.thumbnail} />}
         title={productToShow?.title}
-        subheader={`Disponibili: ${productToShow?.qty}`}
+        subheader={`Disponibili: ${getProductQuantity(productToShow.id)}`}
       />
       <CardMedia
         component="img"
@@ -66,7 +66,7 @@ export default function ProductCard({ product }: { product: Product["id"] }) {
           variant="outlined"
           startIcon={<ShoppingCartRounded />}
           disabled={!quantity}
-          onClick={() => addToCart(productToShow)}
+          onClick={() => addToCart(productToShow, quantity as number)}
         >
           Add item
         </Button>
