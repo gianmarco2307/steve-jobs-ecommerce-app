@@ -23,9 +23,15 @@ export default function ProductCard({ product }: { product: Product["id"] }) {
     setQuantity(parseInt(e.target.value));
   };
 
+  
   if (!productToShow) {
     return null;
   }
+  
+  const onClickAddToCart = () => {
+    addToCart(productToShow, quantity as number);
+    setQuantity(0);
+  };
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -66,7 +72,7 @@ export default function ProductCard({ product }: { product: Product["id"] }) {
           variant="outlined"
           startIcon={<ShoppingCartRounded />}
           disabled={!quantity}
-          onClick={() => addToCart(productToShow, quantity as number)}
+          onClick={onClickAddToCart}
         >
           Add item
         </Button>
